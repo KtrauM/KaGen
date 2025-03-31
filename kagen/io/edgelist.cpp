@@ -23,17 +23,17 @@ void EdgelistWriter::WriteHeader(const std::string& filename, const SInt n, cons
         return;
     }
 
-    BufferedTextOutput<> out(tag::append, filename);
-    out.WriteString("p ").WriteInt(n).WriteChar(' ').WriteInt(m).WriteChar('\n').Flush();
+    // BufferedTextOutput<> out(tag::create, filename);
+    // out.WriteString("p ").WriteInt(n).WriteChar(' ').WriteInt(m).WriteChar('\n').Flush();
 }
 
 bool EdgelistWriter::WriteBody(const std::string& filename) {
-    BufferedTextOutput<> out(tag::append, filename);
+    BufferedTextOutput<> out(tag::create, filename);
     for (const auto& [from, to]: graph_.edges) {
         if (!directed_ && from > to) {
             continue;
         }
-        out.WriteString("e ").WriteInt(from + 1).WriteChar(' ').WriteInt(to + 1).WriteChar('\n').Flush();
+        out.WriteInt(from).WriteChar(' ').WriteInt(to).WriteChar('\n').Flush();
     }
 
     return false;
