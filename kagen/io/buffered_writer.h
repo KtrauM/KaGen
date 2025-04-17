@@ -28,7 +28,7 @@ public:
         }
     }
 
-    BufferedTextOutput(AppendTag, const std::string& filename) : fd_{open(filename.c_str(), O_WRONLY | O_APPEND)} {
+    BufferedTextOutput(AppendTag, const std::string& filename) : fd_{open(filename.c_str(), O_WRONLY | O_CREAT | O_APPEND)} {
         if (fd_ < 0) {
             throw IOError("cannot write to " + filename + " (this is most likely a bug)");
         }
